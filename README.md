@@ -155,6 +155,11 @@ The easiest way to use this GOSM is to add this repository as a package with Uni
 
 You can also manually add this package by cloning it to the packages folder of your project.
 
+In scripts using the GOSM, be sure to specify this by using the namespace GOSM:
+```csharp
+using GOSM;
+```
+
 ### How to Implement Your Own Actions
 
 To define a custom action, create a method that returns an integer status code based on the result of the action (`-1` for ongoing, `0` for failure, `1` for success). Then, instantiate the `Action` class with your method.
