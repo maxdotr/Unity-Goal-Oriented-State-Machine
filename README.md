@@ -12,6 +12,7 @@ This project implements a Goal-Oriented State Machine (GOSM) using Unity, aimed 
    - [Goal](#goal)
    - [StateManager](#statemanager)
 4. [Usage](#usage)
+   - [Installation](#installation)
    - [How to Implement Your Own Actions](#how-to-implement-your-own-actions)
    - [Defining Goals](#defining-goals)
    - [Creating a StateManager](#creating-a-statemanager)
@@ -147,16 +148,36 @@ public class StateManager
 
 ## Usage
 
+### Installation
+
+The easiest way to use this GOSM is to add this repository as a package with Unity's package manager:
+- Window-> Package Manager -> `+` button -> add package from `git` url -> `https://github.com/maxdotr/Unity-Goal-Oriented-State-Machine.git`
+
+You can also manually add this package by cloning it to the packages folder of your project.
+
 ### How to Implement Your Own Actions
 
 To define a custom action, create a method that returns an integer status code based on the result of the action (`-1` for ongoing, `0` for failure, `1` for success). Then, instantiate the `Action` class with your method.
 
+```csharp
+public Action walkAroundAction;
+public Fail walkAroundFail;
+```
 ```csharp
 public int WalkRandomly()
 {
     // Custom logic for walking randomly
     return statusCode;
 }
+
+public int RunAway()
+{
+    return statusCode;
+}
+```
+```csharp
+walkAroundFail = new Fail(RunAway);
+walkAroundAction = new Action(WalkRandomly, WalkAroundFail);
 ```
 
 ### Defining Goals
@@ -166,7 +187,7 @@ A `Goal` consists of a list of actions, and the goal succeeds when all actions a
 1. Create a list of actions.
 2. Define any prerequisites (conditions for execution).
 3. Pass them to the `Goal` constructor with associated parameters:
-- PrerequisitesMet: A delegate to a method that returns a status code. The goal will only be available for execution when both this delegate returns true and when online.
+- PrerequisitesMet: A delegate to a method that returns a bool. The goal will only be available for execution when both this delegate returns true and when online.
 - GoalWeight: The weight of the goal. Higher weights (higher in integer, 99 > 1), signal to the StateManager the priority for execution of available goals.
 - RepeatableOnFail: If, when failed and after the fail action is completed, this goal can rejoin goals available for execution.
 - RepeatableOnSuccess: If, when completed successfully, the goal can rejoin goals available for execution.
