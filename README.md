@@ -165,7 +165,12 @@ A `Goal` consists of a list of actions, and the goal succeeds when all actions a
 
 1. Create a list of actions.
 2. Define any prerequisites (conditions for execution).
-3. Pass them to the `Goal` constructor along with the goal's priority and whether it is repeatable.
+3. Pass them to the `Goal` constructor with associated parameters:
+- PrerequisitesMet: A delegate to a method that returns a status code. The goal will only be available for execution when both this delegate returns true and when online.
+- GoalWeight: The weight of the goal. Higher weights (higher in integer, 99 > 1), signal to the StateManager the priority for execution of available goals.
+- RepeatableOnFail: If, when failed and after the fail action is completed, this goal can rejoin goals available for execution.
+- RepeatableOnSuccess: If, when completed successfully, the goal can rejoin goals available for execution.
+- Offline: Whether this goal is available for execution. This can be changed at any time after initialization. 
 
 ```csharp
 LinkedList<Action> goalActions = new LinkedList<Action>();
