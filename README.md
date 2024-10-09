@@ -420,7 +420,7 @@ public class TestGOSM : MonoBehaviour
    Check if the `GoalConditionsMet` or `actionResult` is being correctly handled in your `Action` and `Goal` classes.
 
 3. **Why is my performance being impacted so much?**
-    Check how often you are executing the statemanager. Use fixed update for better performance, or manually define how often the state manager executes. 
+   Check how often you are executing the statemanager. Use fixed update for better performance, or manually define how often the state manager executes. 
 
 ## Extending the GOSM
 
