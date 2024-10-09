@@ -2,7 +2,7 @@
     "name": "com.maxdotr.goalorientedstatemachine",
     "version": "1.0.0",
     "displayName": "Goal Oriented State Machine",
-    "description": "This is an example package",
+    "description": "The GOSM enables intelligent agents (such as NPCs or enemies) to follow a set of actions to achieve certain goals. Each goal consists of one or more actions, and each action can either succeed, fail, or continue (i.e., still in progress). In cases where an action fails, a corresponding Fail action is executed. This machine is controlled by a state manager that selects which goal to execute based on the current conditions.",
     "unity": "2022.1",
     "author": {
       "name": "Maxwell Rodgers",
