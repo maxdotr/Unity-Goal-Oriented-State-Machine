@@ -41,7 +41,7 @@ The GOSM is composed of four key components:
 
 ### Action
 
-An `Action` is a unit of work in the state machine. Actions are part of goals and define individual behaviors, such as moving to a specific point, attacking a target, etc.
+An `Action` is a unit of work in the state machine. Actions are part of goals and define individual behaviors, such as moving to a specific point, attacking a target, etc. Because actions are a single unit of work within a larger goal, they should not be long and tedious operations. This also gives room for more flexibility when an action fails. Within a goal, actions are completed in order they are passed to accomplish a goal. So, if the end goal is to perform an attack on the player, the associated actions could be broken up like: Face player, move towards player, execute attack, execute transition animation. 
 
 - **Status Codes:**
   - `-1`: Ongoing (the action is not complete yet)
