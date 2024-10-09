@@ -35,7 +35,7 @@ namespace GOSM
         /// The status of a goal. If a goal is being executed <see cref="GoalFailed"/> will contain an empty string. Otherwise, it 
         /// will either contain "true" for a failure and a "false" for a success.
         /// </summary>
-        public string GoalFailed { get; private set; }
+        public bool? GoalFailed { get; private set; }
 
         /// <summary>
         /// Defines whether this goal can be added back to the list of available goals when the initial attempt failed.
@@ -65,7 +65,7 @@ namespace GOSM
         /// <param name="offline">If this goal can be executed at all.</param>
         public Goal(LinkedList<Action> actions, PrerequisitesMet prerequisites, int goalWeight, bool repeatableOnFail, bool repeatableOnSuccess, bool offline)
         {
-            GoalFailed = string.Empty;
+            GoalFailed = null;
             this.actions = actions;
             curr = this.actions.First;
             prerequisitesMet = prerequisites;
@@ -97,16 +97,16 @@ namespace GOSM
                 executeAction();
             }
 
-            if (curr.Value.failed == "true")
+            if (curr.Value.failed == true)
             {
-                GoalFailed = "true";
+                GoalFailed = true;
             }
 
             else if (curr.Value.actionResult == 1) // If the current action succeeds
             {
                 if (curr.Next == null)
                 {
-                    GoalFailed = "false";
+                    GoalFailed = false;
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace GOSM
         /// </summary>
         public void Reset()
         {
-            GoalFailed = "";
+            GoalFailed = null;
             curr = actions.First;
 
             foreach (Action action in actions)

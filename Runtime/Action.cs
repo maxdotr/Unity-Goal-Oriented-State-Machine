@@ -25,7 +25,7 @@ namespace GOSM
         /// Represents if the action has failed. Ongoing actions contain the empty string. 
         /// Successful actions contain "false" and otherwise "true"
         /// </summary>
-        public string failed { get; set; }
+        public bool? failed { get; set; }
 
         /// <summary>
         /// Action result. -1 if ongoing, 0 if failed, 1 if successful. 
@@ -56,11 +56,11 @@ namespace GOSM
             if (actionResult == 0) // Fail condition
             {
                 executeAction = fail.Execute;
-                failed = "true";
+                failed = true;
             }
             else if (actionResult == 1) // Success condition
             {
-                failed = "false";
+                failed = false;
             }
 
             return actionResult = executeAction();
@@ -71,7 +71,7 @@ namespace GOSM
         /// </summary>
         public void Reset()
         {
-            failed = "";
+            failed = null;
             actionResult = -1; // Reset to ongoing state
             executeAction = executeActionHolder;
         }

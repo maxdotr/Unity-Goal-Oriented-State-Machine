@@ -65,8 +65,8 @@ namespace GOSM
             foreach (Goal goal in goals)
             {
                 if (goal.Equals(currentGoal) &&
-                    ((currentGoal.GoalFailed == "true" && !goal.repeatableOnFail) ||
-                     (currentGoal.GoalFailed == "false" && !goal.repeatableOnSuccess)))
+                    ((currentGoal.GoalFailed == true && !goal.repeatableOnFail) ||
+                     (currentGoal.GoalFailed == false && !goal.repeatableOnSuccess)))
                 {
                     continue;
                 }
@@ -79,7 +79,7 @@ namespace GOSM
                 }
             }
 
-            if(currentGoal.GoalFailed == "true" || currentGoal.GoalFailed == "false") 
+            if(currentGoal.GoalFailed == true || currentGoal.GoalFailed == false) 
             {
                 currentGoal.Reset();
             }
