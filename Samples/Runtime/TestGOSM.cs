@@ -12,9 +12,9 @@ public class TestGOSM : MonoBehaviour
     public Vector3 walkPoint;
 
     public Fail walkAroundFail;
-    public Action walkAroundAction;
+    public Step walkAroundAction;
     public Goal walkAroundGoal;
-    private LinkedList<Action> walkAroundGoalActionList = new LinkedList<Action>();
+    private LinkedList<Step> walkAroundGoalActionList = new LinkedList<Step>();
     private List<Goal> walkAroundGoalList = new List<Goal>();
 
    public StateManager stateManager;
@@ -24,7 +24,7 @@ public class TestGOSM : MonoBehaviour
 
         ///Defining goals
         walkAroundFail = new Fail(RunAway);
-        walkAroundAction = new Action(WalkRandomly, walkAroundFail);
+        walkAroundAction = new Step(WalkRandomly, walkAroundFail);
         walkAroundGoalActionList.AddFirst(walkAroundAction);
 
         // Initialize the goal list before adding the goal

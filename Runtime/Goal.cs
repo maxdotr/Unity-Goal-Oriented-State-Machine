@@ -11,14 +11,14 @@ namespace GOSM
     ///     Each goal is performed as defined by multiple properties that help the <see cref="StateManager"/> decide which goal to execute. 
     /// </para>
     /// <para>
-    ///     A goal is a group of <see cref="Action"/>s. When all actions are completed, the goal is successful. If an action fails,
+    ///     A goal is a group of <see cref="Step"/>s. When all actions are completed, the goal is successful. If an action fails,
     ///     the goal will complete the <see cref="Fail"/> action defined within the fail condition, then signal to the manager the goal has failed.
     /// </para>
     /// </summary>
     public class Goal
     {
-        private LinkedList<Action> actions = new LinkedList<Action>();
-        private LinkedListNode<Action> curr;
+        private LinkedList<Step> actions = new LinkedList<Step>();
+        private LinkedListNode<Step> curr;
 
         /// <summary>
         /// The weight of a goal. A higher weight signal higher priority for the <see cref="StateManager"/>
@@ -57,13 +57,13 @@ namespace GOSM
         /// particular goal, the prerequisites for a goal to be considered eligible for completion, the weight (the priority of a goal), if it can be repeatable on
         /// failure/success, and whether the goal is offline or not. 
         /// </summary>
-        /// <param name="actions">A linked list of <see cref="Action"/>s in which order is defined for the goal to complete.</param>
+        /// <param name="actions">A linked list of <see cref="Step"/>s in which order is defined for the goal to complete.</param>
         /// <param name="prerequisites">A delegate that returns a bool if the prerequisites are met for the goal to be executed.</param>
         /// <param name="goalWeight">The priority of a goal</param>
         /// <param name="repeatableOnFail">If this goal is repeatable on a failure</param>
         /// <param name="repeatableOnSuccess">If this goal is repeatable on a success</param>
         /// <param name="offline">If this goal can be executed at all.</param>
-        public Goal(LinkedList<Action> actions, PrerequisitesMet prerequisites, int goalWeight, bool repeatableOnFail, bool repeatableOnSuccess, bool offline)
+        public Goal(LinkedList<Step> actions, PrerequisitesMet prerequisites, int goalWeight, bool repeatableOnFail, bool repeatableOnSuccess, bool offline)
         {
             GoalFailed = null;
             this.actions = actions;
@@ -92,7 +92,7 @@ namespace GOSM
         {
             executeAction = curr.Value.Execute;
 
-            if (curr.Value.actionResult != 1) // Success case
+            if (curr.Value.stepResult != 1) // Success case
             {
                 executeAction();
             }
@@ -102,7 +102,7 @@ namespace GOSM
                 GoalFailed = true;
             }
 
-            else if (curr.Value.actionResult == 1) // If the current action succeeds
+            else if (curr.Value.stepResult == 1) // If the current action succeeds
             {
                 if (curr.Next == null)
                 {
@@ -124,7 +124,7 @@ namespace GOSM
             GoalFailed = null;
             curr = actions.First;
 
-            foreach (Action action in actions)
+            foreach (Step action in actions)
             {
                 action.Reset();
             }

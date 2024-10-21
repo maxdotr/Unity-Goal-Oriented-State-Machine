@@ -12,14 +12,14 @@ namespace GOSM
     ///     uninterpretable action when an action has failed for the StateManager to proceed in execution.
     /// </para>
     /// </summary>
-    public class Action
+    public class Step
     {
-        public delegate int ExecuteAction();
+        public delegate int ExecuteStep();
 
-        ExecuteAction executeAction;
+        ExecuteStep executeStep;
 
         // Save base action when a fail condition starts
-        ExecuteAction executeActionHolder;
+        ExecuteStep executeActionHolder;
 
         /// <summary>
         /// Represents if the action has failed. Ongoing actions contain the empty string. 
@@ -30,19 +30,19 @@ namespace GOSM
         /// <summary>
         /// Action result. -1 if ongoing, 0 if failed, 1 if successful. 
         /// </summary>
-        public int actionResult { get; set; }
+        public int stepResult { get; set; }
 
         private Fail fail;
 
         /// <summary>
-        /// Constructor for the action object. Pass in a void method that returns an <see cref="actionResult"/> and a <see cref="Fail"/> object
+        /// Constructor for the action object. Pass in a void method that returns an <see cref="stepResult"/> and a <see cref="Fail"/> object
         /// that defines what happens when an object fails.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="fail"></param>
-        public Action(ExecuteAction action, Fail fail)
+        public Step(ExecuteStep action, Fail fail)
         {
-            executeAction = action;
+            executeStep = action;
             executeActionHolder = action;
             this.fail = fail;
         }
@@ -53,17 +53,17 @@ namespace GOSM
         /// <returns></returns>
         public int Execute()
         {
-            if (actionResult == 0) // Fail condition
+            if (stepResult == 0) // Fail condition
             {
-                executeAction = fail.Execute;
+                executeStep = fail.Execute;
                 failed = true;
             }
-            else if (actionResult == 1) // Success condition
+            else if (stepResult == 1) // Success condition
             {
                 failed = false;
             }
 
-            return actionResult = executeAction();
+            return stepResult = executeStep();
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace GOSM
         public void Reset()
         {
             failed = null;
-            actionResult = -1; // Reset to ongoing state
-            executeAction = executeActionHolder;
+            stepResult = -1; // Reset to ongoing state
+            executeStep = executeActionHolder;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace GOSM
     /// <para>
     ///     This state machine was developed with the thought of Enemy AI. In this context, the GOSM works in the following manner:
     ///     <ol>
-    ///         <li>An <see cref="Action"/> is a single step of the overall goal.</li>
+    ///         <li>An <see cref="Step"/> is a single step of the overall goal.</li>
     ///         <li>A <see cref="Goal"/> is a group of actions.</li> 
     ///     </ol>
     ///</para>

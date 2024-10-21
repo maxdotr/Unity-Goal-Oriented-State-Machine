@@ -7,7 +7,7 @@ namespace GOSM
 {
     /// <summary>
     /// <para>
-    ///     This class describes failure behavior for use in the <see cref="Action"/>, <see cref="Goal"/>, and <see cref="StateManager"/> for the Goal Oriented State Machine.
+    ///     This class describes failure behavior for use in the <see cref="Step"/>, <see cref="Goal"/>, and <see cref="StateManager"/> for the Goal Oriented State Machine.
     ///     A failure action is uninterrupted and is executed when a particular action fails.
     /// </para>
     /// </summary>
