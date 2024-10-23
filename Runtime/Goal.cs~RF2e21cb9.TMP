@@ -98,9 +98,19 @@ namespace GOSM
         /// <returns></returns>
         public void ExecuteGoal()
         {
-            int result = curr.Value.Execute();
+            executeAction = curr.Value.Execute;
 
-            if (result == 1)
+            if (curr.Value.stepResult != 1) // Success case
+            {
+                executeAction();
+            }
+
+            if (curr.Value.failed == true)
+            {
+                GoalFailed = true;
+            }
+
+            else if (curr.Value.stepResult == 1) // If the current action succeeds
             {
                 if (curr.Next == null)
                 {
@@ -109,11 +119,8 @@ namespace GOSM
                 else
                 {
                     curr = curr.Next;
+                    ExecuteGoal();
                 }
-            }
-            else if (result == 0)
-            {
-                GoalFailed = true;
             }
         }
 

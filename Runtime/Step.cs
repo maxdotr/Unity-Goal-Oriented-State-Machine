@@ -63,12 +63,12 @@ namespace GOSM
         /// <returns></returns>
         public int Execute()
         {
-            if (stepResult == 0) // Fail condition
+            if (stepResult == 0)
             {
                 executeStep = fail.Execute;
                 failed = true;
             }
-            else if (stepResult == 1) // Success condition
+            else if (stepResult == 1)
             {
                 failed = false;
             }
@@ -82,7 +82,7 @@ namespace GOSM
         public void Reset()
         {
             failed = null;
-            stepResult = -1; // Reset to ongoing state
+            stepResult = -1;
             executeStep = executeActionHolder;
         }
     }

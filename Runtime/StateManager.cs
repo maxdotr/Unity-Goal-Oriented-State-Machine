@@ -78,7 +78,7 @@ namespace GOSM
                 {
                     continue;
                 }
-                
+
                 if (goal.GoalConditionsMet() &&
                     goal.offline == false &&
                     goal.goalWeight > goalWithConditionsMet.goalWeight)
@@ -87,7 +87,7 @@ namespace GOSM
                 }
             }
 
-            if(currentGoal.GoalFailed == true || currentGoal.GoalFailed == false) 
+            if (currentGoal.GoalFailed == true || currentGoal.GoalFailed == false)
             {
                 currentGoal.Reset();
             }
