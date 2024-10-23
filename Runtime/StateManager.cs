@@ -31,7 +31,7 @@ namespace GOSM
     {
         private List<Goal> goals;
         private Goal defaultGoal;
-        private Goal currentGoal;
+        public Goal currentGoal { get; private set; }
 
         /// <summary>
         /// Constructor for the StateManager object. Pass in a list of <see cref="Goal"/>s this instance of the StateManager should manage, and a
