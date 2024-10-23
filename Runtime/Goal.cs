@@ -47,6 +47,14 @@ namespace GOSM
         /// </summary>
         public bool repeatableOnSuccess { get; }
 
+        /// <summary>
+        /// The name of the method currently being executed.
+        /// </summary>
+        public string CurrentlyInvoking
+        {
+            get => curr.Value.HeldMethod;
+        }
+
         public delegate int ExecuteAction();
         public delegate bool PrerequisitesMet();
         private ExecuteAction executeAction;

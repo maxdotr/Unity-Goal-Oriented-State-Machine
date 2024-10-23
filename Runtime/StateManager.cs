@@ -34,6 +34,14 @@ namespace GOSM
         public Goal currentGoal { get; private set; }
 
         /// <summary>
+        /// The name of the method the state machine is currently invoking.
+        /// </summary>
+        public string CurrentlyInvoking
+        {
+            get => currentGoal.CurrentlyInvoking;
+        }
+
+        /// <summary>
         /// Constructor for the StateManager object. Pass in a list of <see cref="Goal"/>s this instance of the StateManager should manage, and a
         /// default <see cref="Goal"/> that will run when no <see cref="Goal"/>s match any of the defined prerequisites in <see cref="Goal"/>. The default
         /// goal should have the lowest (the least important) weight of all passed in goals.

@@ -12,14 +12,24 @@ namespace GOSM
     ///     uninterpretable action when an action has failed for the StateManager to proceed in execution.
     /// </para>
     /// </summary>
-    public class Step
+    public class Step : IMetaDataProvider
     {
         public delegate int ExecuteStep();
-
         ExecuteStep executeStep;
 
         // Save base action when a fail condition starts
         ExecuteStep executeActionHolder;
+
+        /// <summary>
+        /// Method name of the current action
+        /// </summary>
+        public string HeldMethod
+        {
+            get
+            {
+                return executeStep.Method.Name;
+            }
+        }
 
         /// <summary>
         /// Represents if the action has failed. Ongoing actions contain the empty string. 
