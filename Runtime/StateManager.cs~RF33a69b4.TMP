@@ -69,40 +69,30 @@ namespace GOSM
         /// <returns></returns>
         private Goal GetGoal()
         {
-            if ((currentGoal.GoalFailed.HasValue &&
-                ((currentGoal.GoalFailed.Value && !currentGoal.repeatableOnFail) ||
-                 (!currentGoal.GoalFailed.Value && !currentGoal.repeatableOnSuccess))) || !currentGoal.GoalConditionsMet())
-            {
-                currentGoal.Reset();
-
-                Goal goalWithConditionsMet = defaultGoal;
-
-                foreach (Goal goal in goals)
-                {
-                    if (goal.Equals(currentGoal))
-                    {
-                        continue;
-                    }
-
-                    if (goal.GoalConditionsMet() && !goal.offline && goal.goalWeight > goalWithConditionsMet.goalWeight)
-                    {
-                        goalWithConditionsMet = goal;
-                    }
-                }
-
-                currentGoal = goalWithConditionsMet;
-            }
-
-            return currentGoal;
-        }
-
-        public void ResetGoals()
-        {
+            Goal goalWithConditionsMet = defaultGoal;
             foreach (Goal goal in goals)
             {
-                goal.Reset();
+                if (goal.Equals(currentGoal) &&
+                    ((currentGoal.GoalFailed == true && !goal.repeatableOnFail) ||
+                     (currentGoal.GoalFailed == false && !goal.repeatableOnSuccess)))
+                {
+                    continue;
+                }
+
+                if (goal.GoalConditionsMet() &&
+                    goal.offline == false &&
+                    goal.goalWeight > goalWithConditionsMet.goalWeight)
+                {
+                    goalWithConditionsMet = goal;
+                }
             }
-            currentGoal = defaultGoal;
+
+            if (currentGoal.GoalFailed == true || currentGoal.GoalFailed == false)
+            {
+                currentGoal.Reset();
+            }
+
+            return currentGoal = goalWithConditionsMet;
         }
     }
 }
