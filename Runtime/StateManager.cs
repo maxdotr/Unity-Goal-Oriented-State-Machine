@@ -92,8 +92,14 @@ namespace GOSM
 
                 currentGoal = goalWithConditionsMet;
             }
+            else if (currentGoal.GoalFailed.HasValue &&
+                    ((currentGoal.GoalFailed.Value && currentGoal.repeatableOnFail) ||
+                    (!currentGoal.GoalFailed.Value && currentGoal.repeatableOnSuccess)))
+            {
+                currentGoal.Reset();
+            }
 
-            return currentGoal;
+                return currentGoal;
         }
 
         public void ResetGoals()
