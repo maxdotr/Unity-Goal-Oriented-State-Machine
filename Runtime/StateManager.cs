@@ -69,9 +69,9 @@ namespace GOSM
         /// <returns></returns>
         private Goal GetGoal()
         {
-            if ((currentGoal.GoalFailed.HasValue &&
+            if (currentGoal.GoalFailed.HasValue &&
                 ((currentGoal.GoalFailed.Value && !currentGoal.repeatableOnFail) ||
-                 (!currentGoal.GoalFailed.Value && !currentGoal.repeatableOnSuccess))) || !currentGoal.GoalConditionsMet())
+                 (!currentGoal.GoalFailed.Value && !currentGoal.repeatableOnSuccess)))
             {
                 currentGoal.Reset();
 
