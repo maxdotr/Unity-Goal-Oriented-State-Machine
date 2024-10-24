@@ -67,11 +67,11 @@ namespace GOSM
         /// Helper method that defines which goal <see cref="Execute"/> should run.
         /// </summary>
         /// <returns></returns>
-        private Goal GetGoal()
+        private Goal GetGoal(bool switchGoal = false)
         {
-            if (currentGoal.GoalFailed.HasValue &&
+            if ((currentGoal.GoalFailed.HasValue &&
                 ((currentGoal.GoalFailed.Value && !currentGoal.repeatableOnFail) ||
-                 (!currentGoal.GoalFailed.Value && !currentGoal.repeatableOnSuccess)))
+                 (!currentGoal.GoalFailed.Value && !currentGoal.repeatableOnSuccess))) || switchGoal)
             {
                 currentGoal.Reset();
 
@@ -97,6 +97,10 @@ namespace GOSM
                     (!currentGoal.GoalFailed.Value && currentGoal.repeatableOnSuccess)))
             {
                 currentGoal.Reset();
+                if (!currentGoal.GoalConditionsMet()) 
+                {
+                    currentGoal = GetGoal(true);
+                }
             }
 
                 return currentGoal;
