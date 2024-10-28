@@ -31,7 +31,7 @@ namespace GOSM
     {
         private List<Goal> goals;
         private Goal defaultGoal;
-        public Goal currentGoal { get; private set; }
+        public Goal currentGoal { get; set; }
 
         /// <summary>
         /// The name of the method the state machine is currently invoking.
